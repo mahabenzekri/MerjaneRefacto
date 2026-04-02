@@ -250,8 +250,8 @@ describe('MyController Integration Tests', () => {
 		return database.transaction(tx => {
 			const insertedProducts = tx.insert(products).values(productList).returning({productId: products.id}).all();
 			const order = tx.insert(orders).values([{}]).returning({orderId: orders.id}).get();
-			tx.insert(ordersToProducts).values(insertedProducts.map(p => ({orderId: order!.orderId, productId: p.productId}))).run();
-			return order!.orderId;
+			tx.insert(ordersToProducts).values(insertedProducts.map(p => ({orderId: order.orderId, productId: p.productId}))).run();
+			return order.orderId;
 		});
 	}
 
