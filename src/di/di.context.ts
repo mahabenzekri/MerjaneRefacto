@@ -5,14 +5,16 @@ import {type INotificationService} from '@/services/notifications.port.js';
 import {NotificationService} from '@/services/impl/notification.service.js';
 import {type Database} from '@/db/type.js';
 import {ProductService} from '@/services/impl/product.service.js';
+import {OrderService} from '@/services/impl/order.service.js';
 
 declare module '@fastify/awilix' {
 
 	interface Cradle { // eslint-disable-line @typescript-eslint/consistent-type-definitions
 		logger: FastifyBaseLogger;
 		db: Database;
-		ns: INotificationService;
-		ps: ProductService;
+		notificationService: INotificationService;
+		productService: ProductService;
+		orderService: OrderService;
 	}
 }
 
@@ -26,10 +28,13 @@ export async function configureDiContext(
 		db: asValue(server.database),
 	});
 	diContainer.register({
-		ns: asClass(NotificationService),
+		notificationService: asClass(NotificationService),
 	});
 	diContainer.register({
-		ps: asClass(ProductService),
+		productService: asClass(ProductService),
+	});
+	diContainer.register({
+		orderService: asClass(OrderService),
 	});
 }
 
