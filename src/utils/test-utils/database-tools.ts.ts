@@ -33,7 +33,7 @@ export async function createDatabaseMock(): Promise<DatabaseMockContext> {
 	const randomName = uniqueNamesGenerator({dictionaries: [adjectives, colors, animals]}); // Big_red_donkey
 	const databaseName = `${UNIT_TEST_DB_PREFIX}${randomName}.db`;
 	const sqlite = new SqliteDatabase(databaseName);
-	await exec(`pnpm drizzle-kit push --schema=src/db/schema.ts --dialect=sqlite --url=${databaseName}`);
+	await exec(`./node_modules/.bin/drizzle-kit push --schema=src/db/schema.ts --dialect=sqlite --url=${databaseName}`);
 
 	const databaseMock = drizzle(sqlite, {
 		schema,

@@ -8,7 +8,7 @@ const exec = promisify(execCallback);
 const databaseConfig = CONFIG.get('db');
 
 beforeEach(async () => {
-	await exec(`pnpm drizzle-kit push --schema=src/db/schema.ts --dialect=sqlite --url=${databaseConfig.url}`);
+	await exec(`./node_modules/.bin/drizzle-kit push --schema=src/db/schema.ts --dialect=sqlite --url=${databaseConfig.url}`);
 	console.log('✅ Database created');
 });
 
